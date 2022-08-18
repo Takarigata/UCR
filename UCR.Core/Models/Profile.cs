@@ -276,6 +276,7 @@ namespace HidWizards.UCR.Core.Models
             foreach (var profile in ChildProfiles)
             {
                 profile.PostLoad(context, this);
+                Console.WriteLine("WESH ALORS");
             }
 
             foreach (var mapping in Mappings)

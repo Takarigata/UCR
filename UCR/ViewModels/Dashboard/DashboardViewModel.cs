@@ -8,6 +8,7 @@ using HidWizards.UCR.Core;
 using HidWizards.UCR.Core.Annotations;
 using HidWizards.UCR.Core.Models;
 using HidWizards.UCR.Core.Models.Binding;
+using System.Threading.Tasks;
 
 namespace HidWizards.UCR.ViewModels.Dashboard
 {
@@ -43,9 +44,16 @@ namespace HidWizards.UCR.ViewModels.Dashboard
         {
             Context = context;
             ProfileList = ProfileItem.GetProfileTree(context.Profiles);
+            if(context.Profiles.Count > 0)
+            {
+                context.Profiles[0].ActivateProfile();
+            }
             PropertyChanged += OnPropertyChanged;
             context.ActiveProfileChangedEvent += OnActiveProfileChangedEvent;
+
+            Task.Delay(5000).ContinueWith((t) => context.Profiles[0].ActivateProfile());
         }
+
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
